@@ -8,9 +8,22 @@ import AuthForm from "@/components/AuthForm";
 import SignoutButton from "@/components/SignoutButton";
 
 export default async function Home() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  let session;
+  try {
+    session = await auth.api.getSession({
+      headers: await headers(),
+    });
+  } catch (error) {
+    console.error("Error getting session during Server Components render:", error);
+    const digest = (error as any)?.digest ?? "unknown";
+    return (
+      <main className="p-8">
+        <h1 className="text-2xl font-bold text-red-700">Server render error</h1>
+        <p className="mt-2 text-gray-700">An error occurred while rendering the page.</p>
+        <p className="mt-4 text-sm text-gray-500">Error digest: {digest}</p>
+      </main>
+    );
+  }
 
   if (!session) {
     return <AuthForm />;
@@ -42,7 +55,24 @@ export default async function Home() {
               </div>
             }
           >
-            <TaskList />
+            {/**
+             * Call the async server component directly and catch errors so
+             * we can log the underlying error and show the digest in UI.
+             */}
+            {await (async () => {
+              try {
+                return await TaskList();
+              } catch (error) {
+                console.error("Error rendering TaskList (Server Component):", error);
+                const digest = (error as any)?.digest ?? "unknown";
+                return (
+                  <div className="text-center py-12">
+                    <p className="text-red-600">Failed to load tasks.</p>
+                    <p className="text-sm text-gray-500 mt-2">Error digest: {digest}</p>
+                  </div>
+                );
+              }
+            })()}
           </Suspense>
         </div>
       </div>
