@@ -2,16 +2,33 @@ import AddTaskButton from "@/components/AddTaskButton";
 import TaskList from "@/components/TaskList";
 import TaskStats from "@/components/TaskStats";
 import { Suspense } from "react";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import AuthForm from "@/components/AuthForm";
+import SignoutButton from "@/components/SignoutButton";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    return <AuthForm />;
+  }
+
   return (
     <main className="">
       <div className="max-w-5xl mx-auto px-4">
-        <header className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            Task Management
-          </h1>
-          <p className="text-gray-600">Organize your tasks efficiently</p>
+        <header className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">
+              Task Management
+            </h1>
+            <p className="text-gray-600">Welcome, {session.user.name}</p>
+          </div>
+          <div>
+            <SignoutButton />
+          </div>
         </header>
         <TaskStats /> {/* show list of tasks */}
         <div className="space-y-6">
