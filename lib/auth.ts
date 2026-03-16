@@ -41,9 +41,9 @@ export const auth = betterAuth({
             body: JSON.stringify({
               from:
                 process.env.RESEND_FROM_EMAIL ||
-                "Support Task App Agusp <support@agusp.com>",
+                "Support Task Management App Agusp <support@agusp.com>",
               to: user.email,
-              subject: "Verify your email for Task App",
+              subject: "Verify your email for Task Management App",
               html: htmlContent,
             }),
           });
