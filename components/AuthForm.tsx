@@ -4,6 +4,9 @@ import { useState } from "react";
 import { signIn, signUp } from "@/lib/auth-client";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function AuthForm() {
   const router = useRouter();
@@ -61,20 +64,17 @@ export default function AuthForm() {
             Check your email
           </h2>
           <div className="py-2 text-center space-y-4">
-            <p className="text-gray-500 text-sm">
+            <p className="text-muted-foreground text-sm">
               We've sent a verification link to{" "}
-              <strong className="text-gray-900">{email}</strong>.
+              <strong className="text-foreground">{email}</strong>.
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground">
               Please check your inbox and click the link to verify your account,
               then you can log in.
             </p>
-            <button
-              className="mt-4 w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors bg-black text-white hover:bg-black/90 h-10 px-4 py-2"
-              onClick={resetToLogin}
-            >
+            <Button className="w-full mt-4" onClick={resetToLogin}>
               Got it
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -92,69 +92,55 @@ export default function AuthForm() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {!isLogin && (
             <div className="space-y-2">
-              <label
-                htmlFor="name"
-                className="text-sm font-medium leading-none"
-              >
-                Name
-              </label>
-              <input
+              <Label htmlFor="name">Name</Label>
+              <Input
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required={!isLogin}
-                className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50"
               />
             </div>
           )}
           <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium leading-none">
-              Email
-            </label>
-            <input
+            <Label htmlFor="email">Email</Label>
+            <Input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50"
             />
           </div>
           <div className="space-y-2">
-            <label
-              htmlFor="password"
-              className="text-sm font-medium leading-none"
-            >
-              Password
-            </label>
-            <input
+            <Label htmlFor="password">Password</Label>
+            <Input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50"
             />
-            <p className="text-xs text-gray-500">
+            <Label
+              htmlFor="password"
+              className="text-sm text-muted-foreground font-normal"
+            >
               Tips: you don't need to use your email account's real password.
-            </p>
+            </Label>
           </div>
 
-          {error && <p className="text-sm text-red-500 font-medium">{error}</p>}
+          {error && (
+            <p className="text-sm text-destructive font-medium">{error}</p>
+          )}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-black/90 h-10 px-4 py-2"
-          >
+          <Button type="submit" className="w-full" disabled={loading}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {isLogin ? "Sign In" : "Sign Up"}
-          </button>
+          </Button>
 
           <div className="text-center text-sm mt-4">
             <button
               type="button"
-              className="text-black hover:underline underline-offset-4"
+              className="text-primary hover:underline underline-offset-4"
               onClick={() => {
                 setIsLogin(!isLogin);
                 setError("");
