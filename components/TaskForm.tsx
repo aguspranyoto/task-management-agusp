@@ -61,7 +61,7 @@ export default function TaskForm({ task, onSuccess }: TaskFormProps) {
           name="title"
           defaultValue={task?.title || ""}
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-2 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black/80 focus:border-black text-gray-800"
           placeholder="Enter task title"
         />
       </div>
@@ -78,7 +78,7 @@ export default function TaskForm({ task, onSuccess }: TaskFormProps) {
           name="description"
           defaultValue={task?.description || ""}
           rows={3}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-2 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black/80 focus:border-black text-gray-800"
           placeholder="Enter task description (optional)"
         />
       </div>
@@ -94,7 +94,7 @@ export default function TaskForm({ task, onSuccess }: TaskFormProps) {
           id="priority"
           name="priority"
           defaultValue={task?.priority || "medium"}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-2 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black/80 focus:border-black text-gray-800"
         >
           <option value="low">Low</option>
           <option value="medium">Medium</option>
@@ -105,7 +105,7 @@ export default function TaskForm({ task, onSuccess }: TaskFormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
       >
         {isSubmitting ? "Saving..." : isEditing ? "Update Task" : "Add Task"}
       </button>

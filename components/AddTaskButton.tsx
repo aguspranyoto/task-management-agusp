@@ -11,7 +11,7 @@ export default function AddTaskButton() {
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
-          className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
+          className="w-full bg-black text-white py-2 px-4 rounded-lg hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 transition-colors font-medium cursor-pointer"
         >
           + Add New Task
         </button>
